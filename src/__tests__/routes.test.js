@@ -144,7 +144,8 @@ describe('Sustainability Routes', () => {
         .delete(`/initiatives/${id}`)
         .expect(200);
 
-      expect(deleteResponse.body).toHaveProperty('message');
+      expect(deleteResponse.body).toHaveProperty('id');
+      expect(deleteResponse.body.id).toBe(id);
 
       // Verificar que foi deletado
       await request(app)

@@ -96,20 +96,30 @@ describe('Sustainability Service', () => {
 
   describe('remove', () => {
     test('should remove an initiative', () => {
+      // Criar um novo item para remover
+      const newItem = service.create({ name: 'To Remove', description: 'Temp', category: 'test', status: 'active' });
       const beforeRemove = service.getAll().length;
-      service.remove(1);
+      
+      service.remove(newItem.id);
       const afterRemove = service.getAll().length;
       
       expect(afterRemove).toBeLessThan(beforeRemove);
-      expect(service.getById(1)).toBeUndefined();
+      expect(service.getById(newItem.id)).toBeUndefined();
     });
 
-    test('should return true when removing existing initiative', () => {
+    test('should return the removed initiative', () => {
       // Criar um novo item para remover
       const newItem = service.create({ name: 'To Remove', description: 'Temp', category: 'test', status: 'active' });
       const result = service.remove(newItem.id);
       
-      expect(result).toBe(true);
+      expect(result).toBeDefined();
+      expect(result.id).toBe(newItem.id);
+      expect(result.name).toBe('To Remove');
+    });
+
+    test('should return null when removing non-existent initiative', () => {
+      const result = service.remove(99999);
+      expect(result).toBeNull();
     });
   });
 });
