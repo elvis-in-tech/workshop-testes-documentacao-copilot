@@ -155,7 +155,69 @@ workshop-testes-documentacao-copilot/
 
 ## Testes
 
-Para testar a API, use os comandos curl acima ou uma ferramenta como Postman. Certifique-se de que o servidor esteja rodando (`npm start`).
+O projeto utiliza **Jest** como framework de testes. Os testes automatizados ajudam a garantir que o código funcione corretamente.
+
+### Como Executar os Testes
+
+#### 1. Executar todos os testes
+```bash
+npm test
+```
+
+Este comando executa todos os testes do projeto e exibe o resultado no terminal.
+
+#### 2. Executar testes em modo watch (observação)
+```bash
+npm run test:watch
+```
+
+No modo watch, os testes são executados automaticamente sempre que você salva um arquivo modificado. Pressione `q` para sair deste modo.
+
+#### 3. Gerar relatório de cobertura
+```bash
+npm run test:coverage
+```
+
+Este comando executa os testes e gera um relatório detalhado sobre quantos por cento do código está coberto por testes.
+
+### Estrutura dos Testes
+
+Os testes estão organizados em:
+
+```
+src/__tests__/
+├── routes.test.js              # Testes das rotas da API
+└── sustainabilityService.test.js  # Testes da lógica de negócio
+```
+
+- **routes.test.js**: Testa os endpoints da API (requisições HTTP).
+- **sustainabilityService.test.js**: Testa as funções de serviço que manipulam os dados.
+
+### Exemplos de Teste
+
+Cada arquivo de teste contém múltiplos casos de teste que verificam se a funcionalidade está funcionando corretamente. Por exemplo:
+
+```javascript
+// Exemplo de teste
+describe('GET /initiatives', () => {
+  it('should return all initiatives', async () => {
+    const response = await request(app).get('/initiatives');
+    expect(response.status).toBe(200);
+  });
+});
+```
+
+Este teste verifica se a requisição GET para `/initiatives` retorna o status HTTP 200 (sucesso).
+
+### Testando a API Manualmente
+
+Se preferir testar a API manualmente enquanto ela está rodando, use:
+
+```bash
+npm start
+```
+
+E em outro terminal, use os comandos curl mencionados na seção [Como Usar](#como-usar) ou use uma ferramenta como [Postman](https://www.postman.com/).
 
 ## Contribuição
 
